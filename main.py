@@ -121,7 +121,7 @@ for f in os.listdir("modules/app"):
 
 async def setup_db():
 
-    db = await asyncpg.create_pool(host="127.0.0.1", port=5432, user=pg_user, password=pg_pwd, database="fateslist")
+    db = await asyncpg.create_pool(host="127.0.0.1", port=5432, user=pg_user, password=pg_pwd, database=pg_db)
 
     # some table creation here meow
 
