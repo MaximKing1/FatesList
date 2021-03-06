@@ -47,7 +47,9 @@ async def approve(ctx, bot: discord.Member):
         owner = check["owner"]
         await db.execute("UPDATE bots SET queue=$2 WHERE bot_id = $1", bot_id, False)
         channel = client.get_channel(bot_logs)
-        await channel.send(f"<@{bot_id}> by <@{ctx.guild.get_member(owner).id}> has been approved")
+        embedVar = discord.Embed(title="Bot Approved!", description=f"<@{bot_id}> by <@{ctx.guild.get_member(owner).id}> has been approved", color=0x00ff00)
+        embedVar.add_field(name="Link:", value=f"https://fateslist.xyz/bot/{bot_id}")
+        await channel.send(embed=embedVar)
         await ctx.send("Approved this bot :)")
     else:
         await ctx.send("You don't have the permission to do this")
