@@ -47,9 +47,9 @@ async def approve(ctx, bot: discord.Member):
         owner = check["owner"]
         await db.execute("UPDATE bots SET queue=$2 WHERE bot_id = $1", bot_id, False)
         channel = client.get_channel(bot_logs)
-        embedVar = discord.Embed(title="Bot Approved!", description=f"<@{bot_id}> by <@{ctx.guild.get_member(owner).id}> has been approved", color=0x00ff00)
-        embedVar.add_field(name="Link:", value=f"https://fateslist.xyz/bot/{bot_id}")
-        await channel.send(embed=embedVar)
+        acceptEmbed = discord.Embed(title="Bot Approved!", description=f"<@{bot_id}> by <@{ctx.guild.get_member(owner).id}> has been approved", color=0x00ff00)
+        acceptEmbed.add_field(name="Link:", value=f"https://fateslist.xyz/bot/{bot_id}")
+        await channel.send(embed=acceptEmbed)
         await ctx.send("Approved this bot :)")
     else:
         await ctx.send("You don't have the permission to do this")
@@ -66,9 +66,9 @@ async def deny(ctx, bot: discord.Member, *, reason: Optional[str] = "There was n
         channel = client.get_channel(bot_logs)
         await db.execute("UPDATE bots SET banned = true WHERE bot_id = $1", bot_id)
         channel = client.get_channel(bot_logs)
-        embedVar2 = discord.Embed(title="Bot Denied!", description=f"<@{str(ctx.author.id)}> denied the bot <@{bot_id}> by <@{ctx.guild.get_member(owner).id}>", color=0x00ff00)
-        embedVar2.add_field(name="Reason:", value=f"{reason}")
-        await channel.send(embed=embedVar2)
+        denyEmbed = discord.Embed(title="Bot Denied!", description=f"<@{str(ctx.author.id)}> denied the bot <@{bot_id}> by <@{ctx.guild.get_member(owner).id}>", color=0x00ff00)
+        denyEmbed.add_field(name="Reason:", value=f"{reason}")
+        await channel.send(embed=denyEmbed)
         await ctx.send("MAGA'd this bot :)")
     else:
         await ctx.send("You don't have the permission to do this")
