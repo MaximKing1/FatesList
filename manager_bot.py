@@ -66,7 +66,9 @@ async def deny(ctx, bot: discord.Member, *, reason: Optional[str] = "There was n
         channel = client.get_channel(bot_logs)
         await db.execute("UPDATE bots SET banned = true WHERE bot_id = $1", bot_id)
         channel = client.get_channel(bot_logs)
-        await channel.send(f"<@{str(ctx.author.id)}> denied the bot <@{bot_id}> by <@{ctx.guild.get_member(owner).id}> with the reason: {reason}")
+        embedVar2 = discord.Embed(title="Bot Denied!", description=f"<@{str(ctx.author.id)}> denied the bot <@{bot_id}> by <@{ctx.guild.get_member(owner).id}>", color=0x00ff00)
+        embedVar2.add_field(name="Reason:", value=f"{reason}")
+        await channel.send(embed=embedVar2)
         await ctx.send("MAGA'd this bot :)")
     else:
         await ctx.send("You don't have the permission to do this")
